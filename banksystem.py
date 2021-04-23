@@ -2,12 +2,15 @@ class BankAccount:
     def __init__(self, balance = 0):
         self.balance = balance
 
-    def withdraw(self, amount):
-        self.balance -= amount
-        return self.balance
-
     def deposit(self, amount):
         self.balance += amount
+        return self.balance
+
+    def withdraw(self, amount):
+        if self.balance - amount < 0:
+            print('Not enough funds. Balance is {balance}'.format(balance = self.balance))
+            raise ValueError
+        self.balance -= amount
         return self.balance
 
 class SavingsAccount(BankAccount):
@@ -18,22 +21,12 @@ class SavingsAccount(BankAccount):
     def compute_interest(self, n_periods = 1):
         return self.balance * ((1 + self.interest_rate) ** n_periods - 1)
 
-    def withdraw(self, amount):
-        if self.balance - amount < 0:
-            print('Not enough funds. Balance is {balance}'.format(balance = self.balance))
-            raise ValueError
-
 class CheckingAccount(BankAccount):
-    def __init__(self, balance = 0, max_credit = 1000):
+    def __init__(self, balance = 0):
         BankAccount.__init__(self, balance)
-        self.max_credit = max_credit
 
-    def withdraw(self, amount):
-        if self.balance - amount < 0 - self.max_credit:
-            print("Amount to withdraw exceeds credit limit.")
-            raise ValueError
-        else:
-            self.balance -= amount
+    def withdraw(self, amount, fee):
+        BankAccount.withdraw(self, amount+fee)
         return self.balance
 
 class Customers():
@@ -78,6 +71,38 @@ class Employees:
         else:
             return "Terminated since {end}".format(end = self.end_date)
 
-""" class Service:
-    class Loans:
-    class CreditCard: """   
+class BankService():
+    def __init__(self, balance, interest):
+        self.balance = balance
+        self.interest = interest
+    
+    def pay(self, amount):
+        self.balance -= amount
+        return self.balance
+
+class Loan(BankService):
+    def __init__(self, balance, interest, period):
+        BankService.__init__(self, balance, interest)
+        self.principal = balance
+        self.period = period
+        self.monthly_payment = self.monthly_payment()
+    
+    def monthly_payment(self):
+        p = self.principal
+        r = self.interest/12 #monthly interest rate
+        n = self.period
+        numerator = r*(1+r)**n
+        denominator = ((1+r)**n) - 1
+        return p*numerator/denominator
+
+class CreditCard(BankService):
+    def __init__(self, balance, interest, max_credit):
+        BankService.__init__(self, balance, interest)
+        self.max_credit = max_credit
+    
+    def charge(self, amount):
+        if self.balance + amount > self.max_credit:
+            print('Exceed credit limit')
+            raise ValueError
+        self.balance += amount
+        return self.balance 
