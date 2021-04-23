@@ -1,6 +1,6 @@
 class BankAccount:
-    def __init__(self):
-        self.balance = 0
+    def __init__(self, balance = 0):
+        self.balance = balance
 
     def withdraw(self, amount):
         self.balance -= amount
@@ -11,27 +11,24 @@ class BankAccount:
         return self.balance
 
 class SavingsAccount(BankAccount):
-    def withdrawl(self, amount):
-        if self.balance - amount < 0:
-            raise ValueError
-        self.balance -= amount
-        return self.balance
+    def __init__(self, balance = 0, interest_rate = 0.0007):
+        BankAccount.__init__(self, balance)
+        self.interest_rate = interest_rate
+
+    def compute_interest(self, n_periods = 1):
+        return self.balance * ((1 + self.interest_rate) ** n_periods - 1)
 
 class CheckingAccount(BankAccount):
-    def __init__(self):
-        BankAccount.__init__(self)
-        self.max_credit = 0
-    
-    def set_max_credit(self, max_credit):
+    def __init__(self, balance = 0, max_credit = 1000):
+        BankAccount.__init__(self, balance)
         self.max_credit = max_credit
 
-    def get_max_credit(self):
-        return self.max_credit
-
     def withdraw(self, amount):
-        if self.balance < 0 - self.max_credit:
+        if self.balance - amount < 0 - self.max_credit:
+            print("Amount to withdraw exceeds credit limit.")
             raise ValueError
-        self.balance -= amount
+        else:
+            self.balance -= amount
         return self.balance
 
 class Customers:
@@ -98,6 +95,4 @@ class Employees:
 
 """ class Service:
     class Loans:
-    class CreditCard: """
-
-        
+    class CreditCard: """   
