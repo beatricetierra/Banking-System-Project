@@ -23,7 +23,8 @@ class Loan(BankService):
         return p*numerator/denominator
 
 class CreditCard(BankService):
-    def __init__(self, balance, interest, max_credit):
+    def __init__(self, interest, max_credit):
+        balance = 0
         BankService.__init__(self, balance, interest)
         self.max_credit = max_credit
     
