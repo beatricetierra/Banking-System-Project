@@ -1,5 +1,12 @@
 import os.path
 import json
+import logging
+from datetime import datetime
+
+today = datetime.now().date().strftime("%Y%m%d") 
+log_filename = 'BankingSystemLog_{date}.log'.format(date=today)
+logging.basicConfig(filename=log_filename, level=logging.INFO,
+                    format='%(asctime)s %(levelname)s %(message)s')
 
 class CustomersData:
     def __init__(self, first, last, address):
@@ -67,4 +74,5 @@ class CustomersData:
         record = self.get_record(file)
         record[self.name]['balance'] = value
         self.write_json(file, record)
+        logging.info("Updated balance of {name} to ${balance}".format(name=self.name, balance=value))
         return "Updated {file}".format(file=file)

@@ -22,9 +22,9 @@
     },
     "Tierra, Anthony": {
         "account_type": "loan",
-        "balance": 20000.0,
-        "interest_rate": 20000.0,
-        "period": 5,
+        "balance": 50000.0,
+        "interest_rate": 5.0,
+        "period": 120,
         "credit_limit": null
     }
 }

@@ -1,0 +1,6 @@
+2021-04-27 00:03:17,016 INFO Created new customer: Tran, John
+2021-04-27 00:03:42,280 INFO New checking acount under Tran, John: balance = 8000.0
+2021-04-27 00:04:51,264 INFO Created new customer: Tran, John
+2021-04-27 00:05:03,039 INFO New checking acount under Tran, John: balance = 8000.0
+2021-04-27 00:05:34,897 INFO Updated balance of Tran, John to $7790.0
+2021-04-27 00:05:52,648 INFO Updated balance of Tran, John to $7890.0
