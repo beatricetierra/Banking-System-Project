@@ -8,16 +8,11 @@ log_filename = 'BankingSystemLog_{date}.log'.format(date=today)
 logging.basicConfig(filename=log_filename, level=logging.INFO,
                     format='%(asctime)s %(levelname)s %(message)s')
 
-class CustomersData:
-    def __init__(self, first, last, address):
+class RecordInfo:
+    def __init__(self, first, last):
         self.first = first
         self.last = last
-        self.name = self.full_name()
-        self.address = address
-        self.update_customer_records()
-    
-    def full_name(self):
-        return "{last}, {first}".format(last=self.last, first=self.first)
+        self.name = "{last}, {first}".format(last=self.last, first=self.first)
 
     def check_file_exists(self, file):
         return os.path.exists(file)
@@ -40,6 +35,12 @@ class CustomersData:
             print("Created new file.")
             records = {}
         return records
+
+class CustomersData(RecordInfo):
+    def __init__(self, first, last, address):
+        RecordInfo.__init__(self, first, last)
+        self.address = address
+        self.update_customer_records()
 
     def update_customer_records(self):
         f = "Customers.json"
@@ -76,3 +77,28 @@ class CustomersData:
         self.write_json(file, record)
         logging.info("Updated balance of {name} to ${balance}".format(name=self.name, balance=value))
         return "Updated {file}".format(file=file)
+
+class EmployeesData(RecordInfo):
+    def __init__(self, first, last, start_date, salary):
+        RecordInfo.__init__(self, first, last)
+        self.start_date = start_date
+        self.salary = salary
+        self.update_employee_records()
+    
+    def update_employee_records(self):
+        f = "Employees.json"
+        record = self.get_record(f)
+        record[self.name] = {'salary': self.salary, 
+                         'start date': self.start_date, 
+                         'end date': None}
+        self.write_json(f, record)
+        return "Updated {file}".format(file=f)
+
+    def update_enddate(self, end_date):
+        f = 'Employees.json'
+        record = self.get_record(f)
+        record[self.name]['end date'] = end_date
+        self.write_json(f, record)
+        logging.info("Updated termindation date of {name} to {date}".format(name=self.name, date=end_date))
+        return "Termination date added to {file}".format(file=f)
+    

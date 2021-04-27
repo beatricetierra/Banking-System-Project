@@ -1,8 +1,10 @@
+import logging 
+from datetime import datetime
+
 import BankAccounts
 import BankServices
 from SaveData import CustomersData
-import logging 
-from datetime import datetime
+from SaveData import EmployeesData
 
 today = datetime.now().date().strftime("%Y%m%d") 
 log_filename = 'BankingSystemLog_{date}.log'.format(date=today)
@@ -16,8 +18,7 @@ class Customers():
         self.address = address
 
         self.record = CustomersData(self.first_name, self.last_name, self.address)
-        logging.info('Created new customer: {last}, {first}'.format(
-                        last=self.last_name, first=self.first_name))
+        logging.info('New customer: {last}, {first}'.format(last=self.last_name, first=self.first_name))
 
     def add_account(self):
         self.account_type = input("Account type (\"savings\" or \"checking\"): ")
@@ -29,7 +30,7 @@ class Customers():
     
     def add_savings_account(self):
         self.interest_rate = float(input("Interest rate: "))
-        self.account = BankAccounts.SavingsAccount(self.balance, self.interest_rate)
+        self.account = BankAccounts.SavingsAccount(self.record, self.balance, self.interest_rate)
         self.record.update_account_records(self.account_type, self.balance, self.interest_rate)
         logging.info('New savings acount under {last}, {first}: balance = {balance}, interest = {interest}'.format(
                     last=self.last_name, first=self.first_name, balance=self.balance, interest=self.interest_rate))
@@ -70,16 +71,19 @@ class Employees:
         self.start_date = start_date
         self.end_date = ''
         self.salary = salary
-
-    def get_full_name(self):
-        return "{first} {last}".format(first=self.first_name, last=self.last_name)
         
+        self.record = EmployeesData(self.first_name, self.last_name, self.start_date, self.salary)
+        logging.info('New employee: {last}, {first}: started = {start}, salary = {salary}'.format(
+                                                            last=self.last_name, first=self.first_name,
+                                                            start=self.start_date, salary=self.salary))
+
     def set_end_date(self, date):
         if type(date) != str:
             print("Please enter string value for end date.")
             raise TypeError
         else:
             self.end_date = date
+            self.record.update_enddate(date)
         return self.end_date
     
     def get_employment_status(self):
