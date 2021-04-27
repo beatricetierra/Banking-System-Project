@@ -1,9 +1,0 @@
-{
-    "Tran, John": {
-        "account_type": "credit card",
-        "balance": -111,
-        "interest_rate": 25.0,
-        "period": null,
-        "credit_limit": 8000
-    }
-}
