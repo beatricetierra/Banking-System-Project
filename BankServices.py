@@ -1,15 +1,17 @@
 class BankService():
-    def __init__(self, balance, interest):
+    def __init__(self, record, balance, interest):
+        self.record = record
         self.balance = balance
         self.interest = interest
     
     def pay(self, amount):
         self.balance -= amount
+        self.record.update_balance('Services.json', self.balance)
         return self.balance
 
 class Loan(BankService):
-    def __init__(self, balance, interest, period):
-        BankService.__init__(self, balance, interest)
+    def __init__(self, record, balance, interest, period):
+        BankService.__init__(self, record, balance, interest)
         self.principal = balance
         self.period = period
         self.monthly_payment = self.calculate_monthly_payment()
@@ -23,9 +25,9 @@ class Loan(BankService):
         return p*numerator/denominator
 
 class CreditCard(BankService):
-    def __init__(self, interest, max_credit):
+    def __init__(self, record, interest, max_credit):
         balance = 0
-        BankService.__init__(self, balance, interest)
+        BankService.__init__(self, record, balance, interest)
         self.max_credit = max_credit
     
     def charge(self, amount):
@@ -33,4 +35,5 @@ class CreditCard(BankService):
             print('Exceed credit limit')
             raise ValueError
         self.balance += amount
+        self.record.update_balance('Services.json', self.balance)
         return self.balance 

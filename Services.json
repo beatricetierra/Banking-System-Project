@@ -1,0 +1,30 @@
+{
+    "Tierra, Beatrice": {
+        "account_type": "loan",
+        "balance": 35000.0,
+        "interest_rate": 0.04,
+        "period": 12,
+        "credit_limit": null
+    },
+    "Tierra, Edward": {
+        "account_type": "credit card",
+        "balance": 10,
+        "interest_rate": 12.0,
+        "period": null,
+        "credit_limit": 10000
+    },
+    "Tierra, Jocelyn": {
+        "account_type": "credit card",
+        "balance": null,
+        "interest_rate": 25.0,
+        "period": null,
+        "credit_limit": 100000
+    },
+    "Tierra, Anthony": {
+        "account_type": "loan",
+        "balance": 20000.0,
+        "interest_rate": 20000.0,
+        "period": 5,
+        "credit_limit": null
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "Tierra, Beatrice": {
+        "account_type": "savings",
+        "balance": 50000.0,
+        "interest_rate": 0.0005
+    },
+    "Tierra, Edward": {
+        "account_type": "checking",
+        "balance": 900.0,
+        "interest_rate": null
+    },
+    "Tierra, Jocelyn": {
+        "account_type": "savings",
+        "balance": 40000.0,
+        "interest_rate": 0.005
+    },
+    "Tierra, Anthony": {
+        "account_type": "checking",
+        "balance": 1900.0,
+        "interest_rate": null
+    }
+}
