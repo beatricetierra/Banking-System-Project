@@ -30,4 +30,8 @@ Each initialized customer's first name, last name, and address are stored and tr
     1. **Loan** : Added calculated monthly payment (fixed rate).
     2. **Credit Card**: Added feature to charge card within the max credit limit. 
 
+## Class Relationships
+![alt text](https://github.com/beatricetierra/Banking-System-Project/blob/main/UML.PNG)
+
+
 
