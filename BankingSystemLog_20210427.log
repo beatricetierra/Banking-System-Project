@@ -1,7 +1,0 @@
-2021-04-27 14:22:50,200 INFO New customer: Tran, John
-2021-04-27 14:23:20,559 INFO New savings acount under Tran, John: balance = 40000.0, interest = 0.01
-2021-04-27 14:23:38,358 INFO Updated balance of Tran, John to $41000.0
-2021-04-27 14:26:11,575 INFO New credit card to Tran, John: credit limit = 8000, interest = 25.0
-2021-04-27 14:26:33,782 INFO Updated balance of Tran, John to $1000
-2021-04-27 14:26:59,398 INFO Updated balance of Tran, John to $8000
-2021-04-27 14:27:20,309 INFO Updated balance of Tran, John to $-111
